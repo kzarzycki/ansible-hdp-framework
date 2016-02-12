@@ -1,0 +1,6 @@
+- name: install mysql-server
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql-server
+    - MySQL-python
+

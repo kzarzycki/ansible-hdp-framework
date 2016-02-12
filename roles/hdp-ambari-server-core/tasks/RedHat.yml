@@ -1,0 +1,14 @@
+- name: install ambari-server
+  yum: name=ambari-server state=present
+  register: ambari_installed
+
+- name: install different packages Mysql related + curl
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql-connector-java
+    - mysql
+    - MySQL-python
+    - python-httplib2
+    - curl
+  when: ambari_db_flavour == "mysql"
+

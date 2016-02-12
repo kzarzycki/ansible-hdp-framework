@@ -1,0 +1,30 @@
+---
+
+# This play installs a database used by Ambari and other components. 
+# It can be skipped if you have a mysql DB already installed, but then please configure it with variables. 
+# Please look at hdp-ambari-server-core  to know what variables to set up.
+- name: Install DB for HDP
+  hosts: hdp-db-server
+  roles:
+    - role: geerlingguy.mysql
+
+# When you apply a full role like hdp-ambari-server, some subroles run as dependencies.
+# If you would like to apply your own subroles separately, you can do that with a play similar to following:
+#- name: Prepare hdp nodes
+#  hosts: hdp
+#  roles:
+#    - hdp-basic-packages  
+#    - ansiblebit.oracle-java
+#    - hdp-ambari-prep
+#    - hdp-ambari-server-core  # this is the main role installing ambari server.
+
+
+- name: Install Ambari Server
+  hosts: ambari-server
+  roles:
+    - hdp-ambari-server
+
+- name: Install Ambari Agents
+  hosts: hdp
+  roles:
+    - hdp-ambari-agent

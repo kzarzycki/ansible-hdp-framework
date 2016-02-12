@@ -1,0 +1,11 @@
+# - debug: msg="packages {{package_info.packages }}"
+
+#- name: "debug test"
+#  debug: msg="package one by one - {{item}}"
+#  with_items: "{{ package_info.packages }}"
+
+- name: ensure required packages are installed
+  when: packages|length > 0
+  with_items: "{{ packages }}"
+  action: "{{ packaging_mgr }}"
+  args: "{{ packaging_args }}"

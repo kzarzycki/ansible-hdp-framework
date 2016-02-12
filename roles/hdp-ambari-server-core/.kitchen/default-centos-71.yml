@@ -1,0 +1,7 @@
+---
+ssh_key: "/home/zarzyk/dev/leadbullet/ansible-infra/roles_external/hdp-ambari-server/.kitchen/docker_id_rsa"
+image_id: 8ce495071ce1
+container_id: 5279ba2b3a525e7ce2552ee5cce9d79912e4af6d6ec33e9f44a076d55d36ea12
+hostname: localhost
+port: 32772
+last_action: create

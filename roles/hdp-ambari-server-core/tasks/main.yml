@@ -1,0 +1,37 @@
+---
+- name: Include RedHat specific setup
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Include Debian specific setup
+  include: Debian.yml
+  when: ansible_os_family == "Debian"
+
+
+- name: Include setup with mysql
+  include: mysql.yml
+  when: ( ambari_installed|changed or ambari_server_force_configuration ) and ambari_db_flavour == "mysql"
+
+- name: "Ensure db flavour is mysql(the only supported)"
+  fail: msg="other db flavours than mysql are not yet implemented"
+  when: ambari_db_flavour != "mysql"
+
+# - name : Create folder
+#  file : dest=/opt/ambari-install state=directory mode=0755
+
+# - name : check if ambari-server is installed
+#  wait_for : path=/tmp/ambari-install-output search_regex="completed successfully"
+
+- name : start ambari server and enabled at reboot
+  service : name=ambari-server state=restarted enabled=yes
+  register: ambari_up
+  when: ambari_server_force_restart or ambari_server_force_configuration
+
+- name : start ambari server and enabled at reboot
+  service : name=ambari-server state=started enabled=yes
+  register: ambari_up
+  when: ambari_server_force_restart == false and ambari_server_force_configuration == false
+
+
+- name : check if ambari-server is up
+  wait_for : port={{ ambari_server_port }} delay=10

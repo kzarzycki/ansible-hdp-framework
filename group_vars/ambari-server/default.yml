@@ -1,0 +1,7 @@
+ambari_server_port: "8080"
+ambari_db_port: "3306"
+ambari_db_user: "ambari"
+ambari_db_host: "localhost"
+ambari_db_name: "ambari"
+ambari_db_flavour: "mysql"
+ambari_force_configuration: false

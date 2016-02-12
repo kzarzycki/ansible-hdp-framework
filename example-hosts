@@ -1,0 +1,17 @@
+host01 
+host02 
+host03 
+
+[hdp-db-server]
+host01
+
+[ambari-server]
+host01
+
+[ambari-slaves]
+host02
+host03
+
+[hdp:children]
+ambari-server
+ambari-slaves

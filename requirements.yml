@@ -1,0 +1,11 @@
+- src: https://github.com/kzarzycki/ansible-bootstrap
+  path: roles_external
+
+- src: geerlingguy.mysql
+  path: roles_external
+
+- src: ansiblebit.oracle-java
+  path: roles_external
+
+- src: yaegashi.blockinfile
+  path: roles_external

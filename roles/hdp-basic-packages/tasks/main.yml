@@ -1,0 +1,8 @@
+- name: Ensure Debian specific packages are installed
+  include: "Debian.yml"
+  when: ansible_os_family == "Debian"
+
+- name: Ensure RedHat specific packages are installed
+  include: "RedHat.yml"
+  when: ansible_os_family == "RedHat"
+

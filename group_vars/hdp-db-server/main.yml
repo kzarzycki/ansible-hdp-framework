@@ -1,0 +1,12 @@
+mysql_root_password_update: yes
+
+mysql_databases:
+  - name: ambari
+    encoding: latin1
+    collation: latin1_general_ci
+
+mysql_users:
+  - name: ambari
+    host: "%"
+    password: "ambari"
+    priv: "ambari.*:ALL"

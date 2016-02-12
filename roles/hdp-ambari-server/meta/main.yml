@@ -1,0 +1,6 @@
+dependencies:
+  - hdp-basic-packages  
+  - ansiblebit.oracle-java
+  - hdp-ambari-prep
+  - hdp-ambari-server-core
+
