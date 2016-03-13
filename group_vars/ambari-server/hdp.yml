@@ -1,0 +1,2 @@
+ambari_blueprint_hosts_map_template: "{{playbook_dir}}/hosts-map.json.j2"
+ambari_blueprint_template: "{{playbook_dir}}/blueprint.json.j2"

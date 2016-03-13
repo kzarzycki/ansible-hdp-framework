@@ -1,0 +1,41 @@
+{
+  "blueprint" : "{{ ambari_blueprint_name }}",
+  "default_password" : "{{ ambari_server_password }}",
+  "host_groups" :[
+    {
+      "name" : "hdp-master",
+      "hosts" : [
+        {
+          "fqdn" : "{{ hostvars[groups['hdp-master'][0]]['ansible_fqdn'] }}"
+        }
+      ]
+    },
+    {
+      "name" : "hdp-hbase",
+      "hosts" : [
+{%      for host in groups['hdp-hbase'] %}
+        {
+          "fqdn" : "{{ hostvars[host]['ansible_fqdn'] }}"
+        }
+{%        if not loop.last %}
+{%        endif %}
+{%      endfor %}
+      ]
+    },
+    {
+      "name" : "kafkas",
+      "hosts" : [
+{%      for host in groups['kafkas'] %}
+        {
+          "fqdn" : "{{ hostvars[host]['ansible_fqdn'] }}"
+        }
+{%        if not loop.last %}
+        ,
+{%        endif %}
+{%      endfor %}
+      ]
+    }
+
+
+  ]
+}
