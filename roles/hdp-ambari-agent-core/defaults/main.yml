@@ -5,5 +5,5 @@
 # - playbook you execute gathers facts about generally all the nodes, specifically ambari-server node.
 #   (Please note when you limit playbook run with -l option, it will not be able to gather facts only about nodes limited to! If the limit list don't have
 #   ambari-server, the playbook run will fail.)
-ambari_server_hostname: "{{ hostvars[groups['ambari-server'][0]].ansible_fqdn }}"
+ambari_server_hostname: "{{ hostvars[groups['hdp-ambari-server'][0]].ansible_fqdn }}"
 ambari_agent_force_restart: false

@@ -8,7 +8,4 @@ ambari_db_flavour: "mysql"
 
 ambari_server_force_configuration: false
 ambari_server_force_restart: false
-
-
-java_home: "/usr/java/default"
-
+ambari_java_home: "{{java_home}}"

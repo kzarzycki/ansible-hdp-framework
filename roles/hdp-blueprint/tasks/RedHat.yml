@@ -1,1 +1,21 @@
-- yum: name=python-requests
+# - yum: name=python-requests
+
+- name: Set up stack repo to use
+  uri:
+    url: "http://{{hdp.ambari.server}}:{{hdp.ambari.port}}/{{ambari_api.repositories_url}}/{{item.name}}"
+    body: 
+      Repositories:
+        base_url: "{{item.base_url}}"
+
+    ## constant part
+    force_basic_auth: yes
+    user: "{{hdp.ambari.admin_user}}"
+    password: "{{hdp.ambari.admin_password}}"
+    return_content: yes
+    HEADER_X-Requested-By: ambari
+    body_format: json
+    HEADER_Content-Type: text/plain
+    status_code: 200,201,202
+    method: PUT 
+  with_items: "{{ambari_stack.repos}}"
+

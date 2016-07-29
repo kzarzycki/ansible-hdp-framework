@@ -2,4 +2,4 @@
   apt: 
     name: "{{item}}"
     state: present
-  with_items: hdp_debian_packages
+  with_items: "{{hdp_debian_packages}}"

@@ -8,14 +8,15 @@
   include: "RedHat.yml"
 
 - name: Configure ambari-server hostname in ambari-agent configuration
-  lineinfile: 
-    dest: /etc/ambari-agent/conf/ambari-agent.ini
-    regexp: ^.*hostname=.*$
-    line: hostname={{ambari_server_hostname}}
-    backup: yes
+  ini_file: 
+   dest: /etc/ambari-agent/conf/ambari-agent.ini
+   section: server
+   option: hostname
+   value: "{{ambari_server_hostname}}"
+   backup: yes
 
 - name: Ensure ambari-agent is running and enabled
   service: name=ambari-agent state={{ambari_agent_force_restart | ternary('restarted', 'started') }}  enabled=yes
 
 - name : wait for agent to register
-  pause: seconds=10
+  wait_for: port=8670

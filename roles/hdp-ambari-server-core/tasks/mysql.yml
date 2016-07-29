@@ -1,9 +1,23 @@
+- name: Ensure ambari database exist
+  mysql_db: > 
+    name={{ ambari_db_name }} 
+    state=present 
+    login_host={{ ambari_db_host }}
+    login_user={{ ambari_db_user }}
+    login_password={{ ambari_db_password }}
+
 - name: import ambari-server schema
-  mysql_db: name={{ ambari_db_name }} state=import login_host={{ ambari_db_host }} login_user={{ ambari_db_user }} login_password={{ ambari_db_password }}  target=/var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+  mysql_db: > 
+    name={{ ambari_db_name }} 
+    state=import
+    login_host={{ ambari_db_host }}
+    login_user={{ ambari_db_user }}
+    login_password={{ ambari_db_password }}
+    target=/var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
 
 - name: configure ambari to use mysql
   shell: /usr/sbin/ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
 
 - name: configure ambari server with mysql
-  shell: /usr/sbin/ambari-server setup -s --database=mysql --databasehost={{ ambari_db_host }} --databaseport={{ ambari_db_port }} --databasename={{ ambari_db_name }}  --databaseusername={{ ambari_db_user }}  --databasepassword={{ ambari_db_password }}  -j {{ java_home }}
+  shell: /usr/sbin/ambari-server setup -s --database=mysql --databasehost={{ ambari_db_host }} --databaseport={{ ambari_db_port }} --databasename={{ ambari_db_name }}  --databaseusername={{ ambari_db_user }}  --databasepassword={{ ambari_db_password }}  -j {{ ambari_java_home }}
 

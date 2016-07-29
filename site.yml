@@ -5,6 +5,7 @@
 # Please look at hdp-ambari-server-core  to know what variables to set up.
 - name: Install DB for HDP
   hosts: hdp-db-server
+  become: yes
   roles:
     - role: geerlingguy.mysql
 
@@ -20,7 +21,7 @@
 
 
 - name: Install Ambari Server
-  hosts: ambari-server
+  hosts: hdp-ambari-server
   roles:
     - hdp-ambari-server
 

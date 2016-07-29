@@ -1,0 +1,10 @@
+[Updates-ambari-{{ambari_version}}]
+name={{ambari_repos.RHEL.name}}
+description={{ambari_repos.RHEL.description}}
+baseurl={{ambari_repos.RHEL.baseurl}}
+gpgcheck={{ambari_repos.RHEL.gpgcheck | ternary("1", "0") }}
+{% if ambari_repos.RHEL.gpgcheck %}
+gpgkey={{ambari_repos.RHEL.gpgkey}}
+{%endif %} 
+enabled=1
+priority=1
