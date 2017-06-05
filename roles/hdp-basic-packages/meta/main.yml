@@ -1,9 +1,9 @@
 ---
-dependencies: 
+dependencies:
 
 galaxy_info:
   author: kzarzycki
-  description: Prerequisites for HDP 
+  description: Prerequisites for HDP
   company: "Krzysztof Zarzycki"
   license: "Apache license"
   min_ansible_version: 1.9

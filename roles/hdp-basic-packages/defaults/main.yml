@@ -2,6 +2,8 @@ packages_force_latest: false
 
 hdp_debian_packages:
   - sudo
+  - ca-certificates
 
 hdp_redhat_packages:
   - sudo
+  - ca-certificates

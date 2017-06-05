@@ -9,10 +9,10 @@
 #    - name: Create ambari installation working directory
 #      file: dest={{ambari_blueprint_dir}} state=directory
 #
-#    - name : generate hosts_map 
+#    - name : generate hosts_map
 #      template: src={{ambari_blueprint_hosts_map_template}} dest={{ambari_blueprint_dir}}/hosts-map.json
 #
-#    - name : generate stack definition (blueprint) 
+#    - name : generate stack definition (blueprint)
 #      copy: src={{ambari_blueprint_template}} dest={{ambari_blueprint_file}}
 #
 #    - name : Copy blueprint push
@@ -20,4 +20,4 @@
 #
 #    - name : Launch blueprint
 #      shell : /opt/ambari-install/PushBlueprint.py
-#  when: ambari_blueprint_managed 
+#  when: ambari_blueprint_managed

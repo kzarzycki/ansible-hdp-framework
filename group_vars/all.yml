@@ -1,0 +1,23 @@
+ambari_java_home: "{{ lookup('env', 'JAVA_HOME') }}"
+ambari_base_url: "http://public-repo-1.hortonworks.com/ambari"
+
+ambari_version: "2.5.1.0"
+ambari_major_version: "2.x"
+ambari_repos:
+  RHEL:
+    url: "{{ambari_base_url}}/centos{{ ansible_distribution_major_version }}/{{ ambari_major_version }}/updates/{{ ambari_version }}/ambari.repo"
+    gpg_key_url: "{{ ambari_base_url }}/centos{{ ansible_distribution_major_version }}/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins"
+
+  Debian:
+    url: "{{ ambari_base_url }}/ubuntu14/{{ambari_major_version}}/updates/{{ambari_version}}/ambari.list"
+    keyserver: keyserver.ubuntu.com
+    key: "B9733A7A07513CAD"
+
+ambari_server_hostname: "{{ hostvars[groups['hdp-ambari-server'][0]].ansible_default_ipv4.address }}"
+ambari_server_port: "8080"
+ambari_db_port: "3306"
+ambari_db_user: "ambari"
+ambari_db_password: "ambari"
+ambari_db_host: "{{ hostvars[groups['hdp-db-server'][0]].ansible_default_ipv4.address }}"
+ambari_db_name: "ambari"
+ambari_db_flavour: "mysql"

@@ -1,2 +1,2 @@
 - name: install ambari-agent
-  yum: name=ambari-agent state=latest
+  yum: name=ambari-agent={{ambari_version}}* state=present

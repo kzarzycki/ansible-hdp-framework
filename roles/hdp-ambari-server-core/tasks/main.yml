@@ -22,17 +22,21 @@
 # - name : check if ambari-server is installed
 #  wait_for : path=/tmp/ambari-install-output search_regex="completed successfully"
 
-- name: Check for ambari-server status (workaround for invalid service ambari status code)
-  command: ambari-server status
-  register: ambaristatus
-
-- set_fact:
-    ambari_server_not_running: "{{ ambaristatus.stdout | search('.*Ambari Server not running.*') }}"
+#- name: Check for ambari-server status (workaround for invalid service ambari status code)
+#  command: ambari-server status
+#  changed_when: False
+#  register: ambaristatus
+#
+#- name: Set ambari_server_not_running variable
+#  set_fact:
+#    ambari_server_not_running: "{{ ambaristatus.stdout | search('.*Ambari Server not running.*') }}"
 
 - name : start ambari server and enabled at reboot
-  service : name=ambari-server state=restarted enabled=yes
+  service : 
+    name: ambari-server 
+    state: "{{  ambari_server_force_restart or ambari_server_force_configuration | ternary('restarted', 'started') }}"
+    enabled: yes
   register: ambari_up
-  when: ambari_server_force_restart or ambari_server_force_configuration or ambari_server_not_running 
 
 - name : check if ambari-server is up
   wait_for : port={{ ambari_server_port }} delay=10

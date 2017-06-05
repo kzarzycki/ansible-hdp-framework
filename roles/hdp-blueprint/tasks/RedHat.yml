@@ -3,7 +3,7 @@
 - name: Set up stack repo to use
   uri:
     url: "http://{{hdp.ambari.server}}:{{hdp.ambari.port}}/{{ambari_api.repositories_url}}/{{item.name}}"
-    body: 
+    body:
       Repositories:
         base_url: "{{item.base_url}}"
 
@@ -16,6 +16,5 @@
     body_format: json
     HEADER_Content-Type: text/plain
     status_code: 200,201,202
-    method: PUT 
+    method: PUT
   with_items: "{{ambari_stack.repos}}"
-

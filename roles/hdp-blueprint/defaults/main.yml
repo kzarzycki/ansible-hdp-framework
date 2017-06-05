@@ -8,5 +8,3 @@ ambari_server_endpoint: "{{ambari_server_hostname}}:{{ambari_server_port}}"
 
 ambari_blueprint_hosts_map_template: "hosts-map.json.j2"
 ambari_blueprint_template: "blueprint.json.j2"
-
-

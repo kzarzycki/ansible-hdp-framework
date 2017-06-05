@@ -1,4 +1,4 @@
---- 
+---
 - name: install ambari-server
   apt: name=ambari-server state=present
   register: ambari_installed
@@ -8,8 +8,7 @@
   with_items:
     - libmysql-java
     - mysql-client
-    - python-mysqldb 
+    - python-mysqldb
     - python-httplib2
     - curl
   when: ambari_db_flavour == "mysql"
-

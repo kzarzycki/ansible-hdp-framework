@@ -2,9 +2,9 @@
   get_url: url="{{ ambari_repos.Debian.url }}" dest=/etc/apt/sources.list.d/ambari.list
 
 - name: Import Ambari Repo key.
-  apt_key: 
+  apt_key:
     keyserver: "{{ ambari_repos.Debian.keyserver }}"
     id: "{{ ambari_repos.Debian.key }}"
 
-- name: Update apt cache 
+- name: Update apt cache
   apt: update_cache=yes

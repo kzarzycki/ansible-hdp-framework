@@ -8,7 +8,7 @@
   include: "RedHat.yml"
 
 - name: Configure ambari-server hostname in ambari-agent configuration
-  ini_file: 
+  ini_file:
    dest: /etc/ambari-agent/conf/ambari-agent.ini
    section: server
    option: hostname

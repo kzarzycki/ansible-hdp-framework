@@ -1,0 +1,45 @@
+---
+dependency:
+  name: galaxy
+  requirements_file: requirements.yml
+ansible:
+  playbook: site.yml
+driver:
+  name: docker
+docker:
+  network:
+    - name: docker-cluster-network
+      driver: bridge
+  containers:
+    - name: hdp-db-server
+      hostname: hdp-db-server
+      image: ubuntu
+      image_version: latest
+      ansible_groups:
+        - hdp-db-server
+
+    - name: hdp-ambari-server
+      hostname: hdp-ambari-server
+      image: ubuntu
+      image_version: latest
+      ansible_groups:
+        - hdp-ambari-server
+
+    - name: hdp-ambari-agent-1
+      hostname: hdp-ambari-agent-1
+      image: ubuntu
+      image_version: latest
+      links:
+              hdp-ambari-server: hdp-ambari-server
+      ansible_groups:
+        - hdp-ambari-agent
+    - name: hdp-ambari-agent-2
+      hostname: hdp-ambari-agent-2
+      image: ubuntu
+      image_version: latest
+      links:
+         hdp-ambari-server: hdp-ambari-server
+      ansible_groups:
+        - hdp-ambari-agent
+verifier:
+  name: testinfra

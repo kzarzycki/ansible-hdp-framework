@@ -5,4 +5,3 @@
 - name: Ensure RedHat specific packages are installed
   include: "RedHat.yml"
   when: ansible_os_family == "RedHat"
-
