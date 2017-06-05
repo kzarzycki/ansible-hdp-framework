@@ -11,35 +11,51 @@ docker:
     - name: docker-cluster-network
       driver: bridge
   containers:
-    - name: hdp-db-server
+    - name: hdp-db-server-ubuntu
       hostname: hdp-db-server
       image: ubuntu
       image_version: latest
       ansible_groups:
         - hdp-db-server
 
-    - name: hdp-ambari-server
+    - name: hdp-ambari-server-ubuntu
       hostname: hdp-ambari-server
       image: ubuntu
       image_version: latest
       ansible_groups:
         - hdp-ambari-server
 
-    - name: hdp-ambari-agent-1
+    - name: hdp-ambari-agent-1-ubuntu
       hostname: hdp-ambari-agent-1
       image: ubuntu
       image_version: latest
       links:
-              hdp-ambari-server: hdp-ambari-server
+        hdp-ambari-server-ubuntu: hdp-ambari-server-ubuntu
       ansible_groups:
         - hdp-ambari-agent
-    - name: hdp-ambari-agent-2
+    - name: hdp-ambari-agent-2-centos
       hostname: hdp-ambari-agent-2
-      image: ubuntu
+      image: centos
       image_version: latest
       links:
-         hdp-ambari-server: hdp-ambari-server
+        hdp-ambari-server-ubuntu: hdp-ambari-server
       ansible_groups:
         - hdp-ambari-agent
+
+
+    - name: hdp-db-server-centos
+      hostname: hdp-db-server-centos
+      image: centos 
+      image_version: latest
+      ansible_groups:
+        - hdp-db-server
+
+    - name: hdp-ambari-server-centos
+      hostname: hdp-ambari-server-centos
+      image: centos
+      image_version: latest
+      ansible_groups:
+        - hdp-ambari-server
+
 verifier:
   name: testinfra
