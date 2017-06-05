@@ -1,5 +1,9 @@
 ---
 
+- name: gather facts
+  hosts: all
+  gather_facts: True
+
 # This play installs a database used by Ambari and other components.
 # It can be skipped if you have a mysql DB already installed, but then please configure it with variables.
 # Please look at hdp-ambari-server-core  to know what variables to set up.
