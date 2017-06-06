@@ -1,0 +1,36 @@
+---
+# Inspired by: https://github.com/objectrocket/ansible-hadoop/blob/master/playbooks/roles/common/tasks/main.yml
+# I believe this deserves a role on its own.
+
+
+- name: Get number of kernels in grub.conf
+  shell: grep -E "^[[:blank:]]*kernel" /boot/grub/grub.conf | grep -v transparent_hugepage; exit 0
+  register: grep_result
+  when: ansible_os_family == "RedHat" and (ansible_distribution == "Amazon" or ansible_distribution_major_version == "6") and not azure
+  ignore_errors: true
+
+- name: Disable Transparent Huge Pages in Grub 1
+  lineinfile: dest=/boot/grub/grub.conf
+              backrefs=True
+              state=present
+              regexp='(^\s*kernel(\s+(?!transparent_hugepage=never)[\w=/\-\.\,]+)*)\s*$'
+              line='\1 transparent_hugepage=never'
+  with_items: "{{ grep_result.stdout_lines | default('') }}"
+  when: ansible_os_family == "RedHat" and (ansible_distribution == "Amazon" or ansible_distribution_major_version == "6") and not azure
+
+
+- name: Disable Transparent Huge Pages in Grub 2
+  lineinfile: dest=/etc/default/grub
+              state=present
+              create=yes
+              line='GRUB_CMDLINE_LINUX=$GRUB_CMDLINE_LINUX" transparent_hugepage=never"'
+  when: ansible_distribution_major_version|int > 6 and not azure
+  notify: Run update-grub
+
+  
+- meta: flush_handlers
+
+- name: Disable Transparent Huge Pages until reboot
+  shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo never > /sys/kernel/mm/transparent_hugepage/defrag
+  ignore_errors: true
+  when: not azure
